@@ -28,4 +28,6 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_CRNT_PASSWORD }}" | docker login -u crnt --password-stdin
 
       - name: build and push
-        run: docker buildx build --push --tag docker.io/crnt/multiarch_container:${SHA::6} --platform linux/amd64,linux/arm64/v8 .
+        run: |
+          docker buildx build --push --tag docker.io/crnt/multiarch_container:${SHA::6} --platform linux/amd64,linux/arm64/v8 .
+          docker buildx build --push -f --tag docker.io/crnt/multiarch_container:latest --platform linux/amd64,linux/arm64/v8 .
